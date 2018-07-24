@@ -35,6 +35,10 @@
     XHR.send();
   }
 
+  /**
+   * This function loads a JSON file and dumps it into the addressbook container
+   *
+   */
   function loadJSON() {
     XHR = new XMLHttpRequest();
     XHR.addEventListener("readystatechange", function(){
@@ -46,10 +50,6 @@
     });
     XHR.open("GET", "/data.json");
     XHR.send();
-
-   
-
-  
   }
 
 
@@ -83,33 +83,34 @@
     loadJSON();
 
     XHR.addEventListener("load", function(){
+      let tbody = document.querySelector("tbody");
+      let counter = 0;
+
       addressBook.Contacts.forEach(contact => {
-        let newContact = new objects.Contact(contact.name, contact.number, contact.email);
-        console.log(newContact);
+        let newContact = new objects.Contact(
+          contact.name, contact.number, contact.email);
         Contacts.push(newContact);
+        let tr = document.createElement("tr");
+        let th = document.createElement("th");
+        th.setAttribute("scope", "row");
+        th.textContent = counter;
+        tr.appendChild(th);
+
+          let td1 = document.createElement("td");
+          td1.textContent = contact.name;
+          tr.appendChild(td1);
+          let td2 = document.createElement("td");
+          td2.textContent = contact.number;
+          tr.appendChild(td2);
+          let td3 = document.createElement("td");
+          td3.textContent = contact.email;
+          tr.appendChild(td3);
+          
+          tbody.appendChild(tr);
       });
+  
+    });
 
-      console.log(Contacts);
-
-      
-      $("#clickMeButton").click(function(){
-        $(this).attr("class", "btn btn-danger btn-lg");
-
-      });
-      
-
-      
-
-
-      /*
-      document.querySelector("#clickMeButton")
-      .addEventListener("click", function(event){
-        event.currentTarget.setAttribute("class", "btn btn-danger btn-lg");
-      });
-      */
-    })
-
-    
     
 
   }

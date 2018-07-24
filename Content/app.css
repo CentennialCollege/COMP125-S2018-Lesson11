@@ -8,4 +8,7 @@ nav {
   opacity: 0.8;
 }
 
+#extraNav {
+ min-height: 40px;
+}
 
