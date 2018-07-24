@@ -7,8 +7,21 @@
   let Contacts;
 
 
+  /**
+   * This function inserts HTML from a file or other location
+   * into the specificied tag / element that exists on the 
+   * index.html page
+   *
+   * @param {string} sourceURL
+   * @param {string} destTag
+   */
   function insertHTML(sourceURL, destTag) {
-    let target = document.getElementsByTagName(destTag)[0];
+   //let target = document.getElementsByTagName(destTag)[0];
+   //let target = document.querySelectorAll(destTag)[0];
+  //let target = $(destTag)[0]; -> jQuery Version
+
+   let target = document.querySelector(destTag);
+
     XHR = new XMLHttpRequest();
     XHR.addEventListener("readystatechange", function(){
       if(this.status === 200) {
@@ -77,9 +90,28 @@
       });
 
       console.log(Contacts);
+
+      
+      $("#clickMeButton").click(function(){
+        $(this).attr("class", "btn btn-danger btn-lg");
+
+      });
+      
+
+      
+
+
+      /*
+      document.querySelector("#clickMeButton")
+      .addEventListener("click", function(event){
+        event.currentTarget.setAttribute("class", "btn btn-danger btn-lg");
+      });
+      */
     })
 
     
+    
+
   }
 
   function setPageContent(url) {
