@@ -1,0 +1,19 @@
+{
+    "Contacts": [
+        {
+            "name": "Tom Tsiliopoulos",
+            "number": "416-555-5555",
+            "email": "tom@example.com"
+        },
+        {
+            "name": "John Smith",
+            "number": "416-556-5555",
+            "email": "john@example.com"
+        },
+        {
+            "name": "Jane Doe",
+            "number": "416-557-5555",
+            "email": "jane@example.com"
+        }
+    ]
+}
