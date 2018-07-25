@@ -48,6 +48,8 @@
           addressBook = JSON.parse(this.responseText);
           console.log("Data finished loading");
 
+          createContacts();
+
           displayData();
         }
       }
@@ -56,29 +58,21 @@
     XHR.send();
   }
 
-  function insertDataToSession(data) {
-
-    sessionStorage.setItem(data.id, JSON.stringify(data)); 
+  function createContacts() {
+    addressBook.Contacts.forEach(contact => {
+      let newContact = new objects.Contact(
+        contact.id, contact.name, contact.number, contact.email);
+      Contacts.push(newContact);
+    });
   }
 
-  function insertDataToLocalStorage(data) {
-    localStorage.setItem(data.id, JSON.stringify(data));
-  }
 
   function displayData() {
 
       let tbody = document.querySelector("tbody");
       tbody.innerHTML = "";
-      let counter = 0;
 
-      addressBook.Contacts.forEach(contact => {
-        let newContact = new objects.Contact(
-          contact.id, contact.name, contact.number, contact.email);
-        Contacts.push(newContact);
-
-        insertDataToSession(contact);
-
-        insertDataToLocalStorage(contact);
+      Contacts.forEach(contact => {
 
         let tr = document.createElement("tr");
         let th = document.createElement("th");
@@ -107,7 +101,8 @@
         tr.appendChild(editTd);
 
         editButton.addEventListener("click", (event)=>{
-          console.log(`Editing Item: ${event.currentTarget.getAttribute("data-id")}`);
+          let id = event.currentTarget.getAttribute("data-id");
+          console.log(`Editing Item: ${id}`);
         });
 
 
@@ -120,13 +115,21 @@
         tr.appendChild(deleteTd);
 
         deleteButton.addEventListener("click", (event)=>{
-          console.log(`Deleting Item: ${event.currentTarget.getAttribute("data-id")}`);
+          let id = event.currentTarget.getAttribute("data-id");
+          console.log(`Deleting Item: ${id}`);
+
+          let contactToDelete = Contacts.find(function(contact){
+            return contact.id == id;
+          });
+
+          Contacts.splice(Contacts.indexOf(contactToDelete), 1);
+
+          displayData();
         });
 
 
 
           tbody.appendChild(tr);
-          counter++;
       });
   
   }
