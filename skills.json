@@ -1,0 +1,10 @@
+{
+   "skill1": {
+       "name": "JavaScript",
+       "details": "I know JS"
+   },
+   "skill2": {
+    "name": "TypeScript",
+    "details": "I know TS"
+    }
+}

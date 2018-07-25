@@ -5,6 +5,8 @@
   let hash;
   let addressBook;
   let Contacts;
+  let paragraphs;
+  let skills;
 
 
   /**
@@ -55,6 +57,59 @@
       }
     });
     XHR.open("GET", "/data.json");
+    XHR.send();
+  }
+
+  function loadParagraphs() {
+    
+    XHR = new XMLHttpRequest();
+    XHR.addEventListener("readystatechange", function(){
+      if(this.status === 200) {
+        if(this.readyState === 4)  {
+          paragraphs = JSON.parse(this.responseText);
+          console.log("Paragraph Data finished loading");
+
+          console.log(paragraphs);
+
+          for (const property in paragraphs) {
+            if (paragraphs.hasOwnProperty(property)) {
+              console.log(paragraphs[property]);
+              
+            }
+          }
+
+          console.log(`Paragraph3: ${paragraphs.paragraph3}`);
+        }
+      }
+    });
+    XHR.open("GET", "/paragraphs.json");
+    XHR.send();
+  }
+
+  function loadSkills() {
+    
+    XHR = new XMLHttpRequest();
+    XHR.addEventListener("readystatechange", function(){
+      if(this.status === 200) {
+        if(this.readyState === 4)  {
+          skills = JSON.parse(this.responseText);
+          console.log("Skill Data finished loading");
+
+          console.log(skills);
+
+          for (const property in skills) {
+            if (skills.hasOwnProperty(property)) {
+              console.log(skills[property]);
+              
+            }
+          }
+
+          console.log(`Skill1 name: ${skills.skill1.name}`);
+          console.log(`Skill1 details: ${skills.skill1.details}`);
+        }
+      }
+    });
+    XHR.open("GET", "/skills.json");
     XHR.send();
   }
 
@@ -161,6 +216,10 @@
     setPageContent("/Views/content/home.html");
 
     insertHTML("/Views/partials/footer.html", "footer");
+
+    loadParagraphs();
+
+    loadSkills();
   }
 
   function setPageContent(url) {
